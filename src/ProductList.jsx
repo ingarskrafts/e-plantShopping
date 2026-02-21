@@ -270,6 +270,7 @@ function ProductList({ onHomeClick }) {
 
     const cart = useSelector((state) => state.cart.items);
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const isInCart = (plantName) => cart.some((item) => item.name ===plantName);
 
     return (
         <div>
@@ -311,13 +312,13 @@ function ProductList({ onHomeClick }) {
                                     <button
                                         className='product-button'
                                         onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
-                                        disabled={addedToCart[plant.name]}
+                                        disabled={isInCart(plant.name)}
                                         style={{
-                                            backgroundColor: addedToCart[plant.name] ? "gray" : "",
-                                            cursor: addedToCart[plant.name] ? "not-allowed" : "pointer",
+                                            backgroundColor: isInCart(plant.name) ? "gray" : "",
+                                            cursor: isInCart(plant.name) ? "not-allowed" : "pointer",
                                         }}
                                     >
-                                        {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
+                                        {isInCart(plant.name) ? "Added to Cart" : "Add to Cart"}
                                     </button>
                                 </div>
                             ))}
