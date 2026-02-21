@@ -3,6 +3,8 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { useDispatch } from 'react-redux';
 import { addItem } from './CartSlice';
+import { useSelector } from 'react-redux';
+
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
     const [showCart, setShowCart] = useState(false);
@@ -265,6 +267,9 @@ function ProductList({ onHomeClick }) {
             [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
     };
+
+    const cart = useSelector((state) => state.cart.items);
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
         <div>
